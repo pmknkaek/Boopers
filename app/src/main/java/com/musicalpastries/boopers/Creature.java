@@ -11,7 +11,6 @@ import android.provider.Settings;
 public class Creature extends GameObject {
     private Bitmap spriteSheet;
     private int score;
-    private double dya;
     private boolean playing;
     private boolean up;
     private Animation animation = new Animation();
@@ -46,18 +45,24 @@ public class Creature extends GameObject {
             startTime = System.nanoTime();
         }
         animation.update();
-       /* if (up){
-            dy = (int)(dya-=1.1);
+       if (up){
+            dy -= 2;
         }
         else {
-        dy = (int)(dya+=1.1);
+            dy += 2;
         }
 
         if (dy>14)dy=14;
         if (dy<-14)dy=-14;
-*/
+
         y+= dy*2;
         dy = 0;
+        if(y<0){
+            y=0;
+        }
+        if (y>GamePanel.HEIGHT-300){
+            y=GamePanel.HEIGHT-300;
+        }
     }
 
     public void draw(Canvas canvas){
@@ -66,6 +71,5 @@ public class Creature extends GameObject {
     public int getScore(){return score;}
     public boolean getPlaying(){return playing;}
     public void setPlaying(boolean b){playing = b;}
-    public void resetDYA(){dya=0;}
     public void resetScore(){score = 0;}
 }

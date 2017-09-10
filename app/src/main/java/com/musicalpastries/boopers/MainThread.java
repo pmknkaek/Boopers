@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
  */
 
 public class MainThread extends Thread{
-    private int FPS = 30;
+    private int FPS = 45;
     private double avgFPS;
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;

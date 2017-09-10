@@ -25,7 +25,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         thread = new MainThread(getHolder(), this);
 
-        //make gamepanel focusable so it can hand events
+        //make gamepanel focusable so it can handle events
         setFocusable(true);
     }
 
@@ -37,13 +37,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void surfaceDestroyed(SurfaceHolder holder){
         boolean retry = true;
-        while (retry){
+        int counter = 0;
+        while (retry && counter<1000){
+            counter++;
             try{
                 thread.setRunning(false);
                 thread.join();
+                retry = false;
             }catch (Exception e){e.printStackTrace();}
-
-            retry = false;
         }
 
     }
@@ -55,7 +56,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         thread.setRunning(true);
         thread.start();
     }
-/*
+
     @Override
     public boolean onTouchEvent(MotionEvent event){
         if(event.getAction()==MotionEvent.ACTION_DOWN){
@@ -74,7 +75,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         return super.onTouchEvent(event);
     }
-*/
+
     public void update(){
         creature.update();
     }
