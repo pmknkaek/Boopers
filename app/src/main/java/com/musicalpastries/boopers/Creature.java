@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.provider.Settings;
 
 /**
- * Created by loads on 9/9/2017.
+ * Created by Andrew Groeling on 9/9/2017.
  */
 
 public class Creature extends GameObject {
