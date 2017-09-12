@@ -17,12 +17,13 @@ public class Creature extends GameObject {
     private long startTime;
 
     public Creature(Bitmap res, int w, int h, int numFrames){
-        x=10;
-        y=10;
         dy = 0;
+        dx = 4;
         score = 0;
         height = h;
-        width = w;
+        width = w/numFrames;
+        x=GamePanel.WIDTH/2;
+        y=GamePanel.HEIGHT-height;
 
         Bitmap[] image = new Bitmap[numFrames];
         spriteSheet = res;
@@ -32,7 +33,7 @@ public class Creature extends GameObject {
         }
 
         animation.setFrames(image);
-        animation.setDelay(1000);
+        animation.setDelay(500);
         startTime = System.nanoTime();
     }
 
@@ -45,24 +46,26 @@ public class Creature extends GameObject {
             startTime = System.nanoTime();
         }
         animation.update();
+
+        //y movement
        if (up){
-            dy -= 2;
+            dy = -4;
         }
         else {
-            dy += 2;
+            dy = 4;
         }
 
         if (dy>14)dy=14;
         if (dy<-14)dy=-14;
 
-        y+= dy*2;
+        y+= dy;
         dy = 0;
-        if(y<0){
-            y=0;
-        }
-        if (y>GamePanel.HEIGHT-300){
-            y=GamePanel.HEIGHT-300;
-        }
+        x+=dx;
+
+        //limiting creature to canvas
+        if(y<0){y=0;}
+        if(y>GamePanel.HEIGHT-height){y=GamePanel.HEIGHT-height;}
+        if(x<0 || x>GamePanel.WIDTH-width){dx *= -1;}
     }
 
     public void draw(Canvas canvas){
