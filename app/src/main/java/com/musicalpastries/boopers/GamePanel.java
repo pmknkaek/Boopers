@@ -51,7 +51,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-        creature = new Creature(BitmapFactory.decodeResource(getResources(), R.drawable.circle), 300, 300, 1);
+        creature = new Creature(BitmapFactory.decodeResource(getResources(), R.drawable.duck), 252, 288, 4);
         //can safely start game loop
         thread.setRunning(true);
         thread.start();

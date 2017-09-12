@@ -23,9 +23,13 @@ public class Animation {
     //
     public void setDelay(long d){delay = d;}
     //
-    public void setCurrentFrame(int i){currentFrame = i;}
+    public void setCurrentFrameFrame(int i){currentFrame = i;}
     public int getCurrentFrame() {
         return currentFrame;
+    }
+    //
+    public Bitmap getImage(){
+        return frames[currentFrame];
     }
 
     public void update(){
@@ -40,8 +44,6 @@ public class Animation {
             playedOnce = true;
         }
     }
-    public Bitmap getImage(){
-        return frames[currentFrame];
-    }
+
 
 }

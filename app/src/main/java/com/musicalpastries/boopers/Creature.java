@@ -32,7 +32,7 @@ public class Creature extends GameObject {
         }
 
         animation.setFrames(image);
-        animation.setDelay(10);
+        animation.setDelay(1000);
         startTime = System.nanoTime();
     }
 
