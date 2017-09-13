@@ -5,6 +5,10 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
+
+import java.util.ArrayList;
+
 /**
  * Created by Andrew Groeling on 9/7/2017.
  */
@@ -15,7 +19,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private MainThread thread;
     public static final int HEIGHT = 576;
     public static final int WIDTH = 1024;
-    private Creature creature;
+    private ArrayList<Creature> creatures;
 
     public GamePanel(Context context){
         super(context);
@@ -51,7 +55,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void surfaceCreated(SurfaceHolder holder){
-        creature = new Creature(BitmapFactory.decodeResource(getResources(), R.drawable.duck), 480, 145, 3);
+        creatures = new ArrayList<>();
+        creatures.add(new Creature(BitmapFactory.decodeResource(getResources(), R.drawable.duck), 480, 145, 3));
+        creatures.add(new Creature(BitmapFactory.decodeResource(getResources(), R.drawable.slime), 580, 145, 4));
         //can safely start game loop
         thread.setRunning(true);
         thread.start();
@@ -60,24 +66,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public boolean onTouchEvent(MotionEvent event){
         if(event.getAction()==MotionEvent.ACTION_DOWN){
-            if(!creature.getPlaying()){
-                creature.setPlaying(true);
+            if(!creatures.get(0).getPlaying()){
+                creatures.get(0).setPlaying(true);
             }
             else{
-                creature.setUp(true);
+                creatures.get(0).setUp(true);
             }
             return true;
         }
         if(event.getAction()==MotionEvent.ACTION_UP){
-            creature.setUp(false);
+            creatures.get(0).setUp(false);
             return true;
         }
-
         return super.onTouchEvent(event);
     }
 
     public void update(){
-        creature.update();
+        for (int i = 0; i < creatures.size(); i++) {
+            creatures.get(i).update();
+        }
     }
 
     @Override
@@ -85,12 +92,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         final float scaleFactorX = getWidth()/(WIDTH*1.f);
         final float scaleFactorY = getHeight()/(HEIGHT*1.f);
-
-        if(canvas != null){
-            final int savedState =  canvas.save();
-            canvas.scale(scaleFactorX, scaleFactorY);
-            creature.draw(canvas);
-            canvas.restoreToCount(savedState);
+        canvas.scale(scaleFactorX, scaleFactorY);
+        final int savedState =  canvas.save();
+        //draw stuff
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.grass), 0, 0, null);
+        for (int i = creatures.size()-1; i+1 > 0; i--) {
+            creatures.get(i).draw(canvas);
         }
+        canvas.restoreToCount(savedState);
     }
 }
+

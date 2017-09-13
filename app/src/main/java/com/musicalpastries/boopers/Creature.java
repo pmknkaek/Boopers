@@ -10,7 +10,6 @@ import android.provider.Settings;
 
 public class Creature extends GameObject {
     private Bitmap spriteSheet;
-    private int score;
     private boolean playing;
     private boolean up;
     private Animation animation = new Animation();
@@ -19,11 +18,11 @@ public class Creature extends GameObject {
     public Creature(Bitmap res, int w, int h, int numFrames){
         dy = 0;
         dx = 4;
-        score = 0;
         height = h;
         width = w/numFrames;
-        x=GamePanel.WIDTH/2;
-        y=GamePanel.HEIGHT-height;
+        x=(int)((GamePanel.WIDTH*Math.random())/2);
+        y=(int)((GamePanel.HEIGHT*Math.random())/2);
+        playing = false;
 
         Bitmap[] image = new Bitmap[numFrames];
         spriteSheet = res;
@@ -40,11 +39,6 @@ public class Creature extends GameObject {
     public void setUp(boolean b){up = b;}
 
     public void update(){
-        long elapsed = (System.nanoTime()-startTime)/1000000;
-        if(elapsed>100){
-            score++;
-            startTime = System.nanoTime();
-        }
         animation.update();
 
         //y movement
@@ -54,9 +48,6 @@ public class Creature extends GameObject {
         else {
             dy = 4;
         }
-
-        if (dy>14)dy=14;
-        if (dy<-14)dy=-14;
 
         y+= dy;
         dy = 0;
@@ -71,8 +62,6 @@ public class Creature extends GameObject {
     public void draw(Canvas canvas){
         canvas.drawBitmap(animation.getImage(), x, y, null);
     }
-    public int getScore(){return score;}
     public boolean getPlaying(){return playing;}
     public void setPlaying(boolean b){playing = b;}
-    public void resetScore(){score = 0;}
 }
