@@ -1,7 +1,6 @@
 package com.musicalpastries.boopers;
 
 import android.graphics.Canvas;
-import android.provider.Settings;
 import android.view.SurfaceHolder;
 
 /**
@@ -12,16 +11,16 @@ public class MainThread extends Thread{
     private int FPS = 45;
     private double avgFPS;
     private SurfaceHolder surfaceHolder;
-    private GamePanel gamePanel;
+    private boopersGLSurfaceView boopersGLSurfaceView;
     private boolean running;
     private static Canvas canvas;
 
-    public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel){
+    public MainThread(SurfaceHolder surfaceHolder, boopersGLSurfaceView boopersGLSurfaceView){
         super();
         this.surfaceHolder = surfaceHolder;
-        this.gamePanel = gamePanel;
+        this.boopersGLSurfaceView = boopersGLSurfaceView;
     }
-
+/*
     @Override
     public void run(){
         long startTime;
@@ -39,8 +38,8 @@ public class MainThread extends Thread{
             try {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    this.gamePanel.update();
-                    this.gamePanel.draw(canvas);
+                    this.boopersGLSurfaceView.update();
+                    this.boopersGLSurfaceView.draw(canvas);
                 }
             }
             catch (Exception e) {}
@@ -70,5 +69,5 @@ public class MainThread extends Thread{
 
     public void setRunning(boolean running){
         this.running = running;
-    }
+    }*/
 }
