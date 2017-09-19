@@ -20,7 +20,7 @@ public class Square {
     private final int mProgram;
     private int mPositionHandle;
     private int mColorHandle;
-    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+    private final int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
     //shaders
@@ -108,7 +108,7 @@ public class Square {
 
         // Draw the square
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 4, vertexCount);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 1, vertexCount);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
