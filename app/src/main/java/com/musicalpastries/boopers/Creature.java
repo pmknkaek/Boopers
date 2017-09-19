@@ -19,8 +19,8 @@ public class Creature extends GameObject {
         dx = 4;
         height = h;
         width = w/numFrames;
-        x=(int)((boopersGLSurfaceView.WIDTH*Math.random())/2);
-        y=(int)((boopersGLSurfaceView.HEIGHT*Math.random())/2);
+  //      x=(int)((boopersGLSurfaceView.WIDTH*Math.random())/2);
+  //      y=(int)((boopersGLSurfaceView.HEIGHT*Math.random())/2);
         playing = false;
 
         Bitmap[] image = new Bitmap[numFrames];
@@ -54,8 +54,8 @@ public class Creature extends GameObject {
 
         //limiting creature to canvas
         if(y<0){y=0;}
-        if(y> boopersGLSurfaceView.HEIGHT-height){y= boopersGLSurfaceView.HEIGHT-height;}
-        if(x<0 || x> boopersGLSurfaceView.WIDTH-width){dx *= -1;}
+   //     if(y> boopersGLSurfaceView.HEIGHT-height){y= boopersGLSurfaceView.HEIGHT-height;}
+  //      if(x<0 || x> boopersGLSurfaceView.WIDTH-width){dx *= -1;}
     }
 
     public void draw(Canvas canvas){
