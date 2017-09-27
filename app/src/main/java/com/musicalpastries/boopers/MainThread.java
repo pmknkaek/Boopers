@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
 /**
- * Created by loads on 9/7/2017.
+ * Created by Andrew Groeling on 9/7/2017.
  */
 
 public class MainThread extends Thread{
