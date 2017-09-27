@@ -109,6 +109,7 @@ public class Square {
         // Draw the square
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vertexCount);
 
+
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
