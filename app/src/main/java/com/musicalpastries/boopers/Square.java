@@ -7,7 +7,6 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
-import static com.musicalpastries.boopers.Triangle.triangleCoords;
 
 /**
  * Created by loads on 9/18/2017.
@@ -18,9 +17,9 @@ public class Square {
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
     private final int mProgram;
-    private int mPositionHandle;
-    private int mColorHandle;
-    private int mMVPMatrixHandle;
+    private int mPosition;
+    private int mColor;
+    private int mMVPMatrix;
     private final int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
@@ -97,32 +96,32 @@ public class Square {
         GLES20.glUseProgram(mProgram);
 
         // get handle to vertex shader's vPosition member
-        mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
+        mPosition = GLES20.glGetAttribLocation(mProgram, "vPosition");
 
         // Enable a handle to the square vertices
-        GLES20.glEnableVertexAttribArray(mPositionHandle);
+        GLES20.glEnableVertexAttribArray(mPosition);
 
         // Prepare the square coordinate data
-        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
+        GLES20.glVertexAttribPointer(mPosition, COORDS_PER_VERTEX,
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
 
         // get handle to shape's transformation matrix
-        mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+        mMVPMatrix = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
         // Pass the projection and view transformation to the shader
-        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
+        GLES20.glUniformMatrix4fv(mMVPMatrix, 1, false, mvpMatrix, 0);
 
         // get handle to fragment shader's vColor member
-        mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+        mColor = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the square
-        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+        GLES20.glUniform4fv(mColor, 1, color, 0);
 
         // Draw the square
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vertexCount);
 
         // Disable vertex array
-        GLES20.glDisableVertexAttribArray(mPositionHandle);
+        GLES20.glDisableVertexAttribArray(mPosition);
     }
 }
